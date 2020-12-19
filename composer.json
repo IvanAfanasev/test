@@ -1,0 +1,9 @@
+{
+  "name": "vendor_name/test.local",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/App",
+      "Core\\": "src/Core"
+    }
+  }
+}
