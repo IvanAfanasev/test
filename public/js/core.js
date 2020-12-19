@@ -1,18 +1,22 @@
 "use_strict";
 
-import {auth} from './module/auth.js';
 
-class core{
-    constructor() {
-        this.content = document.querySelector('#content');
-        this.request('init');
+
+class Core{
+    static instance() {
+        if (!Core._instance) {
+            Core._instance = new Core();
+            Core._instance.content = document.querySelector('#content');
+            Core._instance.request('init');
+        }
+        return Core._instance;
     }
-    request(command){
+    request(command,data={}){
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '/', false);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        let data = 'command='+command;
-        xhr.send(data);
+        let datas = 'command='+command+'&data='+JSON.stringify(data);
+        xhr.send(datas);
         if (xhr.status != 200) {
             alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
         } else {
@@ -23,7 +27,7 @@ class core{
     getCommand(command){
         switch (command){
             case 'auth':{
-
+                Auth.instance().loginPage();
             }break;
             case 'home':{
 
@@ -34,5 +38,5 @@ class core{
 
 
 window.onload=function (){
-    new core();
+    Core.instance();
 }

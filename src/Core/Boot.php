@@ -2,6 +2,7 @@
 namespace Core;
 
 use App\Application;
+use App\Model\Login;
 use Core\Boot\BootSingleTrait;
 
 
@@ -11,13 +12,19 @@ use Core\Boot\BootSingleTrait;
  */
 class Boot{
     use BootSingleTrait;
-
+    public $data;
     public function run(){
-        $command = [
-            'init'=>''
-        ];
        if(isset($_POST['command'])){
-           Application::boot('app')->init();
+          $this->data=json_decode($_POST['data'],JSON_FORCE_OBJECT);
+           switch ($_POST['command']){
+               case 'init':{
+                   Application::boot('app')->init();
+               }break;
+               case 'login':{
+                   Login::boot()->login();
+               }
+           }
+
        }else{
            Application::boot('app')->base();
        }
