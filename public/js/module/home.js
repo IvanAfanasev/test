@@ -18,6 +18,7 @@ class Home{
             '      <th scope="col">Название</th>\n' +
             '      <th scope="col">Колличество</th>\n' +
             '      <th scope="col">Дата добавления</th>\n' +
+            '      <th scope="col"></th>\n' +
             '    </tr>\n' +
             '  </thead>\n' +
             '  <tbody id="productTable">\n' +
@@ -31,6 +32,10 @@ class Home{
                 '      <td>'+item.name+'</td>\n' +
                 '      <td>'+item.quantity+'</td>\n' +
                 '      <td></td>\n' +
+                '      <td><button data-id="'+item.id+'" data-actiontype="1" type="button" class="btn btn-success btnProductAction">Приход</button>' +
+                '       <button data-id="'+item.id+'" data-actiontype="2" type="button" class="btn btn-danger btnProductAction">Расход</button>' +
+                '       <button data-id="'+item.id+'" type="button" class="btn btn-info btnProductActionHistory">История операций</button>' +
+                '</td>\n' +
                 '    </tr>\n';
         });
         Core.instance().content.querySelector('#productTable').innerHTML=tableHtml;
@@ -43,6 +48,34 @@ class Home{
                 Core.instance().request('addProduct',data);
             }
         })
+        let btnProductAction= Core.instance().content.querySelectorAll('.btnProductAction');
+        for (let i = 0, len = btnProductAction.length; i < len; i++) {
+            btnProductAction[i].addEventListener("click", ()=>{
+                let productID=btnProductAction[i].getAttribute('data-id');
+                let actionType=btnProductAction[i].getAttribute('data-actiontype');
+                let text ='';
+                if(actionType==1){
+                    text='Приход';
+                }else {
+                    text='Расход';
+                }
+                let quantity  = prompt(text+' - Колличество');
+                let data ={};
+                data.productid = productID;
+                data.actiontypeid = actionType;
+                data.quantity = quantity
+                Core.instance().request('addActionProduct',data);
+            }, false);
+        }
+        let btnProductActionHistory = Core.instance().content.querySelectorAll('.btnProductActionHistory');
+        for (let i = 0, len = btnProductActionHistory.length; i < len; i++) {
+            btnProductActionHistory[i].addEventListener("click", ()=>{
+                let data ={};
+                data.productid = btnProductActionHistory[i].getAttribute('data-id');
+                Core.instance().request('productActionHistory',data);
+            })
+
+        }
     }
 
 }

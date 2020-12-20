@@ -42,7 +42,13 @@ class Application{
             }break;
             case 'addProduct':{
                 Product::boot()->addProduct();
-            }
+            }break;
+            case 'addActionProduct':{
+                Product::boot()->addActionProduct();
+            }break;
+            case 'productActionHistory':{
+                Product::boot()->productActionHistory();
+            }break;
         }
     }
 
