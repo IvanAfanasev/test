@@ -30,7 +30,7 @@ class Core{
                 Auth.instance().loginPage();
             }break;
             case 'home':{
-
+                Home.instance().homePage()
             }break;
       }
     }

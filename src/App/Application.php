@@ -16,7 +16,8 @@ class Application{
 
 
     public function init(){
-        if(isset($_SESSION['login']) and  $_SESSION['login']!=false){
+
+        if(isset($_SESSION['USERID']) and  $_SESSION['USERID']!=false){
             Boot::boot()->response('home');
         }else{
             Boot::boot()->response('auth');

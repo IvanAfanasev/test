@@ -1,9 +1,10 @@
 "use_strict";
 
 class Auth{
-    static instance(options) {
+
+    static instance() {
         if (!Auth._instance) {
-            Auth._instance = new Auth(options);
+            Auth._instance = new Auth();
         }
         return Auth._instance;
     }
@@ -34,9 +35,4 @@ class Auth{
             Core.instance().request('login',data);
         })
     }
-    handleEvent(e){
-        console.log(e);
-    }
-
-
 }

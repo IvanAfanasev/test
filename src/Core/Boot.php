@@ -14,6 +14,7 @@ class Boot{
     use BootSingleTrait;
     public $data;
     public function run(){
+        session_start();
        if(isset($_POST['command'])){
           $this->data=json_decode($_POST['data'],JSON_FORCE_OBJECT);
            switch ($_POST['command']){
@@ -22,6 +23,7 @@ class Boot{
                }break;
                case 'login':{
                    Login::boot()->login();
+
                }
            }
 
