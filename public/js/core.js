@@ -21,16 +21,16 @@ class Core{
             alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
         } else {
             let res = JSON.parse(xhr.responseText);
-            this.getCommand(res.command)
+            this.getCommand(res.command,res.data)
         }
     }
-    getCommand(command){
+    getCommand(command,data){
         switch (command){
             case 'auth':{
                 Auth.instance().loginPage();
             }break;
             case 'home':{
-                Home.instance().homePage()
+                Home.instance().homePage(data)
             }break;
       }
     }

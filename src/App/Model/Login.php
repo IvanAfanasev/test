@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Application;
 use Core\Boot;
 use Core\DataBase\DB;
 
@@ -21,7 +22,7 @@ class Login{
             $res = DB::boot()->connect()->query("SELECT * FROM `users` WHERE `login` = '$login'");
             if(is_array($res) && is_array($res[0]) && $res[0]['password']==$password){
                 $_SESSION['USERID']= $res[0]['id'];
-                Boot::boot()->response('home');
+               Application::boot()->home();
             }else{
                 Boot::boot()->response('auth');
             }
