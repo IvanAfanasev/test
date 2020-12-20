@@ -16,13 +16,15 @@ class Product{
     public function addProduct(){
         $data = Boot::boot()->data;
         $name = $data['name'];
-        DB::boot()->connect()->query("INSERT INTO `product`(`name`) VALUES ('$name')");
+        $today = date("d.m.Y h:i:s");
+        DB::boot()->connect()->query("INSERT INTO `product`(`name`,`date`) VALUES ('$name','$today')");
         Application::boot()->home();
     }
 
     public function getList(){
         return DB::boot()->connect()->query("SELECT * FROM `product`");
     }
+
     public function addActionProduct(){
         $data = Boot::boot()->data;
         $id=(int)$data['productid'];
@@ -37,14 +39,22 @@ class Product{
                 $newQuantity =$product[0]['quantity']- $quantity;
             }
             if($newQuantity>=0){
+                $today = date("d.m.Y h:i:s");
                 DB::boot()->connect()->query("UPDATE `product` SET `quantity` = '$newQuantity' WHERE `product`.`id` = '$id';");
-                DB::boot()->connect()->query("INSERT INTO `productaction`(`productid`, `actiontypeid`, `quantity`, `userid`) VALUES ('$id','$actiontypeid','$quantity','$userid')");
+                DB::boot()->connect()->query("INSERT INTO `productaction`(`productid`, `actiontypeid`, `quantity`, `userid`,`date`) VALUES ('$id','$actiontypeid','$quantity','$userid','$today')");
             }
         }
 
         Application::boot()->home();
     }
-    public function productActionHistory(){
 
+
+    public function productActionHistory(){
+        $data = Boot::boot()->data;
+        $id=(int)$data['productid'];
+        //
+        $productActionHistory =  DB::boot()->connect()->query("SELECT productaction.*,users.login FROM `productaction`,`users` WHERE productaction.productid='$id' and productaction.userid=users.id");
+
+        Boot::boot()->response('productHistory',$productActionHistory);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Core\DataBase;
 
+use App\Config\DbConfig;
 use Core\Boot\BootSingleTrait;
 use PDO;
 
@@ -15,11 +16,11 @@ class DB{
     public function connect(){
 
         if($this->PDO==false){
-            $host = '127.0.0.1';
-            $db   = 'test';
-            $user = 'root';
-            $pass = '';
-            $charset = 'utf8';
+            $host = DbConfig::boot()->host;
+            $db   = DbConfig::boot()->db;
+            $user = DbConfig::boot()->user;
+            $pass = DbConfig::boot()->pass;
+            $charset = DbConfig::boot()->charset;
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
             $opt = [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

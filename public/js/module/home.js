@@ -8,7 +8,6 @@ class Home{
         return Home._instance;
     }
     homePage(data){
-
         Core.instance().content.innerHTML = '<br>' +
             '<h3>Товары<button id="btnAddProduct" type="submit" style="float: right" class="btn btn-primary">Добавить товар</button></h3> ' +
             '<table class="table">\n' +
@@ -18,6 +17,7 @@ class Home{
             '      <th scope="col">Название</th>\n' +
             '      <th scope="col">Колличество</th>\n' +
             '      <th scope="col">Дата добавления</th>\n' +
+            '      <th scope="col"></th>\n' +
             '      <th scope="col"></th>\n' +
             '    </tr>\n' +
             '  </thead>\n' +
@@ -31,7 +31,7 @@ class Home{
                 '      <th scope="row">'+item.id+'</th>\n' +
                 '      <td>'+item.name+'</td>\n' +
                 '      <td>'+item.quantity+'</td>\n' +
-                '      <td></td>\n' +
+                '      <td>'+item.date+'</td>\n' +
                 '      <td><button data-id="'+item.id+'" data-actiontype="1" type="button" class="btn btn-success btnProductAction">Приход</button>' +
                 '       <button data-id="'+item.id+'" data-actiontype="2" type="button" class="btn btn-danger btnProductAction">Расход</button>' +
                 '       <button data-id="'+item.id+'" type="button" class="btn btn-info btnProductActionHistory">История операций</button>' +
@@ -76,6 +76,32 @@ class Home{
             })
 
         }
+    }
+    productHistory(data){
+        let  historyModal =  document.querySelector('#historyModal');
+        historyModal.style.display = 'block';
+        let closeModal =document.querySelector('#historyModal');
+        closeModal.addEventListener('click',()=>{
+            historyModal.style.display = 'none';
+        })
+        let tableHtml='';
+        data.forEach((item) => {
+            let text ='';
+            if(item.actiontypeid==1){
+                text='Приход';
+            }else {
+                text='Расход';
+            }
+            tableHtml+='<tr>\n' +
+                '      <th scope="row">'+item.id+'</th>\n' +
+                '      <td>'+text+'</td>\n' +
+                '      <td>'+item.quantity+'</td>\n' +
+                '      <td>'+item.login+'</td>\n' +
+                '      <td>'+item.date+'</td>\n' +
+                '</td>\n' +
+                '    </tr>\n';
+        });
+        document.querySelector('#historyTable').innerHTML=tableHtml;
     }
 
 }

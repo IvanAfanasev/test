@@ -32,6 +32,9 @@ class Core{
             case 'home':{
                 Home.instance().homePage(data)
             }break;
+            case 'productHistory':{
+                Home.instance().productHistory(data)
+            }
       }
     }
 }

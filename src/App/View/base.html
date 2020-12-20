@@ -11,6 +11,35 @@
         <script src="js/module/home.js"></script>
     </head>
     <body>
+        <div class="modal" tabindex="-1" id="historyModal">
+            <div class="modal-dialog" style="    max-width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button id="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" >
+                        <div style="overflow: scroll; height: 60vh">
+                            <table class="table" >
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Тип операции</th>
+                                    <th scope="col">Количество</th>
+                                    <th scope="col">Автор</th>
+                                    <th scope="col">Дата и время</th>
+                                </tr>
+                                </thead>
+                                <tbody id="historyTable">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container" id="content">
 
         </div>
